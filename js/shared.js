@@ -33,19 +33,12 @@ function initColumn(name, api) {
     logEl.textContent = `[${name}] ${method} ${url} → ${status}`;
   };
 
+  // 從 <template id="book-template"> 複製一份卡片骨架
+  // 比 innerHTML 模板字串快（HTML 只 parse 一次）、更不易踩到 XSS
+  const tpl = document.getElementById('book-template');
   const bookEl = (book) => {
-    const li = document.createElement('li');
+    const li = tpl.content.firstElementChild.cloneNode(true);
     li.dataset.id = book.id;
-    li.innerHTML = `
-      <div class="info">
-        <div class="title"></div>
-        <div class="author"></div>
-      </div>
-      <div class="actions">
-        <button class="edit">✏️</button>
-        <button class="del">🗑️</button>
-      </div>
-    `;
     li.querySelector('.title').textContent = book.title;
     li.querySelector('.author').textContent = `作者：${book.author}`;
     return li;

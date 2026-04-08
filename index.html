@@ -84,6 +84,20 @@
     </section>
   </main>
 
+  <!-- 書籍卡片模板：<template> 內容是惰性的（不會被渲染），由 shared.js clone 出來用 -->
+  <template id="book-template">
+    <li>
+      <div class="info">
+        <div class="title"></div>
+        <div class="author"></div>
+      </div>
+      <div class="actions">
+        <button class="edit">✏️</button>
+        <button class="del">🗑️</button>
+      </div>
+    </li>
+  </template>
+
   <script src="js/shared.js"></script>
   <script src="js/jquery-demo.js"></script>
   <script src="js/fetch-demo.js"></script>
