@@ -21,9 +21,11 @@
       <input type="text" name="title" placeholder="書名" required>
       <input type="text" name="author" placeholder="作者" required>
       <div class="btn-group">
-        <button type="button" data-method="jquery">➕ jQuery 送出</button>
-        <button type="button" data-method="fetch">➕ Fetch 送出</button>
-        <button type="button" data-method="axios">➕ Axios 送出</button>
+        <button type="button" data-method="jquery">➕ jQuery</button>
+        <button type="button" data-method="fetch">➕ Fetch</button>
+        <button type="button" data-method="axios">➕ Axios</button>
+        <button type="button" data-method="ky">➕ ky</button>
+        <button type="button" data-method="ofetch">➕ ofetch</button>
       </div>
     </form>
   </section>
@@ -62,11 +64,33 @@
       <ul class="book-list"></ul>
       <pre class="log"></pre>
     </section>
+
+    <section class="col" data-col="ky">
+      <div class="col-header">
+        <h2>🟦 ky</h2>
+        <button class="reload" title="重抓清單">🔄</button>
+      </div>
+      <ul class="book-list"></ul>
+      <pre class="log"></pre>
+    </section>
+
+    <section class="col" data-col="ofetch">
+      <div class="col-header">
+        <h2>🟧 ofetch</h2>
+        <button class="reload" title="重抓清單">🔄</button>
+      </div>
+      <ul class="book-list"></ul>
+      <pre class="log"></pre>
+    </section>
   </main>
 
   <script src="js/shared.js"></script>
   <script src="js/jquery-demo.js"></script>
   <script src="js/fetch-demo.js"></script>
   <script src="js/axios-demo.js"></script>
+  <!-- ky / ofetch 是 ESM-only，必須用 type="module" 載入 -->
+  <!-- ⚠️ 同樣鎖定版號，並請定期到 GitHub releases 確認最新穩定版 -->
+  <script type="module" src="js/ky-demo.js"></script>
+  <script type="module" src="js/ofetch-demo.js"></script>
 </body>
 </html>
