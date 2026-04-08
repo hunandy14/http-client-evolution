@@ -308,7 +308,7 @@ jQuery        Axios        Fetch 規格    Fetch 在主流  Node 18+    axios �
 ### 啟動方式
 
 ```bash
-git clone <你的-repo-url>
+git clone https://github.com/hunandy14/http-client-evolution.git
 cd ajax
 npm install
 npm run dev
