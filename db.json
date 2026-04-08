@@ -1,0 +1,19 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "JavaScript 高級程序設計",
+      "author": "Zakas"
+    },
+    {
+      "id": 2,
+      "title": "You Don't Know JS",
+      "author": "Kyle Simpson"
+    },
+    {
+      "id": 3,
+      "title": "深入淺出 Node.js",
+      "author": "朴靈"
+    }
+  ]
+}

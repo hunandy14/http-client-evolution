@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>📚 jQuery / Fetch / Axios 對照練習</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- ⚠️ Axios 鎖定版號（供應鏈防護）。請定期到 https://github.com/axios/axios/releases 確認最新穩定版 -->
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.7.9/dist/axios.min.js"
+          crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <h1>📚 書籍管理 — jQuery AJAX / Fetch / Axios 對照練習</h1>
+    <p class="hint">後端：<code>json-server --watch db.json --port 3000</code></p>
+  </header>
+
+  <!-- 統一新增區 -->
+  <section class="top-bar">
+    <form id="add-form">
+      <input type="text" name="title" placeholder="書名" required>
+      <input type="text" name="author" placeholder="作者" required>
+      <button type="button" data-method="jquery">➕ jQuery 送出</button>
+      <button type="button" data-method="fetch">➕ Fetch 送出</button>
+      <button type="button" data-method="axios">➕ Axios 送出</button>
+    </form>
+    <label class="auto-sync">
+      <input type="checkbox" id="auto-sync-toggle">
+      🔁 自動整理（操作後三欄自動 refetch）
+    </label>
+  </section>
+
+  <main class="grid">
+    <section class="col" data-col="jquery">
+      <div class="col-header">
+        <h2>🟦 jQuery AJAX</h2>
+        <button class="reload" title="重抓清單">🔄</button>
+      </div>
+      <ul class="book-list"></ul>
+      <pre class="log"></pre>
+    </section>
+
+    <section class="col" data-col="fetch">
+      <div class="col-header">
+        <h2>🟩 Fetch</h2>
+        <button class="reload" title="重抓清單">🔄</button>
+      </div>
+      <ul class="book-list"></ul>
+      <pre class="log"></pre>
+    </section>
+
+    <section class="col" data-col="axios">
+      <div class="col-header">
+        <h2>🟪 Axios</h2>
+        <button class="reload" title="重抓清單">🔄</button>
+      </div>
+      <ul class="book-list"></ul>
+      <pre class="log"></pre>
+    </section>
+  </main>
+
+  <script src="js/shared.js"></script>
+  <script src="js/jquery-demo.js"></script>
+  <script src="js/fetch-demo.js"></script>
+  <script src="js/axios-demo.js"></script>
+</body>
+</html>

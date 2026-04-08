@@ -1,0 +1,22 @@
+{
+  "name": "ajax-practice",
+  "version": "1.0.0",
+  "private": true,
+  "description": "jQuery AJAX / Fetch / Axios 對照練習專案",
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev:api\" \"npm run dev:web\"",
+    "start": "npm run dev",
+    "dev:api": "json-server --watch db.json --port 3000",
+    "dev:web": "vite --port 5500 --open",
+    "api": "npm run dev:api",
+    "web": "npm run dev:web",
+    "reset": "git checkout -- db.json",
+    "clean": "rimraf node_modules"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "json-server": "^0.17.4",
+    "vite": "^5.4.10",
+    "rimraf": "^6.0.1"
+  }
+}
