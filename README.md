@@ -342,7 +342,3 @@ npm run dev
 - [Elastic Security Labs: How we caught the axios supply chain attack](https://www.elastic.co/security-labs/how-we-caught-the-axios-supply-chain-attack)
 - [Datadog: axios npm supply chain compromise](https://securitylabs.datadoghq.com/articles/axios-npm-supply-chain-compromise/)
 - [The Hacker News: UNC1069 social engineering of axios maintainer](https://thehackernews.com/2026/04/unc1069-social-engineering-of-axios.html)
-
----
-
-**有錯誤、補充或不同意見歡迎開 issue 討論 🙌**
