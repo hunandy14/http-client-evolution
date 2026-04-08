@@ -130,59 +130,40 @@ npm ls axios
 ### `ky`
 
 ```js
-import ky from 'ky';
-
-// GET
-const data = await ky.get('/books').json();
-
-// POST（注意 json 自動處理）
-const newBook = await ky.post('/books', { json: { title, author } }).json();
-
-// interceptors（透過 extend）
-const api = ky.extend({
-  prefixUrl: 'https://api.example.com',
-  hooks: {
-    beforeRequest: [
-      (req) => {
-        const token = localStorage.getItem('token');
-        if (token) req.headers.set('Authorization', `Bearer ${token}`);
-      },
-    ],
-  },
-});
+import ky from 'ky';   // npm install ky
+const data = await ky.get('https://api.example.com/books').json();
 ```
 
 - **2.5 KB** gzipped（vs Axios 13 KB）
 - 自動丟錯（4xx/5xx 直接 throw，沒有 Fetch 的雷）
-- 自動 retry、timeout、JSON 處理
+- 內建 retry、timeout、JSON 處理
+- 透過 `ky.create({ hooks })` 提供類似 Axios interceptors 的功能
 - TypeScript first、Edge runtime 完整支援
 - 每週 ~120 萬下載
 
 ### `ofetch`
 
 ```js
-import { ofetch } from 'ofetch';
-
-const data = await ofetch('/books');
-const newBook = await ofetch('/books', { method: 'POST', body: { title, author } });
+import { ofetch } from 'ofetch';   // npm install ofetch
+const data = await ofetch('https://api.example.com/books');
 ```
 
 - **1.2 KB** gzipped（最小）
 - Nuxt 內建的 `$fetch` 就是它
+- 自動丟錯、自動 JSON、自動 retry
+- 透過 `ofetch.create({ onRequest, onResponseError })` 設定 hooks
 - 適合 SSR / Edge / Workers
 - 每週 ~350 萬下載
 
 ### `wretch`
 
 ```js
-const data = await wretch('/books')
-  .auth(`Bearer ${token}`)
-  .get()
-  .json();
+import wretch from 'wretch';   // npm install wretch
+const data = await wretch('https://api.example.com/books').get().json();
 ```
 
 - **4.8 KB** gzipped
-- 鏈式 API，錯誤分流細膩（`.notFound()` / `.badRequest()`）
+- 鏈式 API，錯誤分流細膩（`.notFound()` / `.badRequest()` / `.unauthorized()`...）
 - 每週 ~25 萬下載
 
 ---
@@ -216,10 +197,15 @@ xhr.send();
 **jQuery 帶來的解放**：
 
 ```js
-$.ajax({ url: '/api/data', success: (data) => { /* ... */ } });
+// 引入 jQuery 後（CDN 一行就能用）
+$.ajax({
+  url: '/api/data',
+  success: (data) => console.log(data),
+  error: (xhr) => console.error(xhr.status),
+});
 ```
 
-從十幾行變一行，更重要的是**不用管哪個瀏覽器**。在那個 IE6 還有 30% 市佔率的年代，這是革命性的。
+從十幾行 XHR 變幾行設定物件，更重要的是**不用管哪個瀏覽器** —— 上面這段 code 在 IE6 跟 Chrome 都跑得起來。在那個 IE6 還有 30% 市佔率的年代，這是革命性的。
 
 「AJAX」這個詞甚至是因為 jQuery 的普及才走進大眾視野（雖然詞本身 2005 年由 Jesse James Garrett 提出）。
 
@@ -236,7 +222,11 @@ $.ajax({ url: '/api/data', success: (data) => { /* ... */ } });
 **Axios 的解答**：
 
 ```js
-axios.get('/api/data').then(data => /* ... */);
+import axios from 'axios';
+
+axios.get('/api/data')
+  .then((res) => console.log(res.data))   // 注意要從 res.data 取
+  .catch((err) => console.error(err.response?.status));
 ```
 
 它做對了三件事：
@@ -256,7 +246,14 @@ axios.get('/api/data').then(data => /* ... */);
 W3C 與 WHATWG 在 2015 年推出 Fetch API 規格，目標就是讓「發請求」成為**瀏覽器原生能力**，跟 `setTimeout` 一樣不需要任何 import。
 
 ```js
-fetch('/api/data').then(r => r.json()).then(data => /* ... */);
+// 瀏覽器原生，不用 import 任何東西
+fetch('/api/data')
+  .then((res) => {
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);   // ⚠️ 要自己判斷
+    return res.json();                                    // ⚠️ 要自己 parse
+  })
+  .then((data) => console.log(data))
+  .catch((err) => console.error(err));
 ```
 
 它做對的事：
