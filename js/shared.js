@@ -117,8 +117,8 @@ document.getElementById('auto-sync-toggle').addEventListener('change', (e) => {
 document.querySelectorAll('#add-form button[data-method]').forEach((btn) => {
   btn.addEventListener('click', () => {
     const form = document.getElementById('add-form');
-    const title = form.title.value.trim();
-    const author = form.author.value.trim();
+    const title = form.querySelector('[name="title"]').value.trim();
+    const author = form.querySelector('[name="author"]').value.trim();
     if (!title || !author) {
       alert('書名與作者必填');
       return;
